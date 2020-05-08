@@ -12,31 +12,26 @@ public class AntiPatternsTest {
     }
     
     @Test
-    void testPlayerAndTornamentName() throws ParseException, InvalidDateException {
-        Player player = new Player();
-        player.setBornDate(29,4,2020);
-        player.setNickname("just");
-        assertEquals("just",player.getNickname());
-
-        Tournament tournament = new Tournament("test tournament");
-        tournament.setName("ESTGV tournament");
+    void testTornamentName() throws ParseException, InvalidDateException {
+        Tournament tournament = new Tournament("ESTGV tournament");
         assertEquals("ESTGV tournament",tournament.getName());
     }
 
     @Test
-    void testPlayerBornDate() throws ParseException, InvalidDateException, NoSuchFieldException, IllegalAccessException {
+    void testPlayer() throws ParseException, InvalidDateException {
+        Player player = new Player();
+        player.setBornDate(29,4,2020);
+        player.setNickname("just");
+        assertEquals("just",player.getNickname());
+    }
+
+    @Test
+    void testPlayerBornDate() throws ParseException, InvalidDateException {
         Player player = new Player();
         player.setBornDate(30,3,2020);
 
-        Field fieldBornDay = player.getClass().getDeclaredField("bornDay");
-        fieldBornDay.setAccessible(true);
-
-        assertEquals(30,(int)fieldBornDay.get(player));
-
+        assertEquals(30, player.getBornDay());
         assertEquals(3, player.getBornMonth());
         assertEquals(2020,player.getBornYear());
     }
-
-
-
 }
